@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.3] - 2026-09-11
+
+Add AICockpit test matrix capabilities, documentation roster mappings, and hook conformance tests to unblock the release pipeline. **Upgrade:** install version 2.9.3 after the release is published.
+
+* Added `aicockpit` entry to `HARNESS_CAPABILITIES` in `tests/harness/harness-matrix.ts`.
+* Registered `aicockpit` in `tests/unit/t285-knowledge-skill.test.ts` and `tests/unit/t294-document-extractors-seam.test.ts`.
+* Added AICockpit harness label and expected manifest roster in `tests/unit/t239-documentation-parity.test.ts`.
+* Registered AICockpit adapter reviewer-scope hook check in `tests/unit/t221-reviewer-scope-hook.test.ts`.
+* Added AICockpit fresh session restart instruction text in `tests/smoke/t123-skills-spec-conformance.test.ts`.
+
 ## [2.9.2] - 2026-09-11
 
 Fix the AICockpit emitter lint warning that blocked the release verification pipeline. **Upgrade:** install version 2.9.2 after the release is published.

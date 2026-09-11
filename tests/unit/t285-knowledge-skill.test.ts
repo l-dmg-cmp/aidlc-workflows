@@ -44,7 +44,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import {
   INACTIVE_INTENT_STATUSES,
   documentsDir,
@@ -80,6 +80,7 @@ const SKILL_REL: Record<string, string> = {
   kiro: ".kiro/skills",
   "kiro-ide": ".kiro/skills",
   opencode: ".aidlc/skills",
+  aicockpit: ".aicockpit/skills",
 };
 
 const HARNESSES = HARNESS_NAMES.map((name) => {
@@ -978,7 +979,7 @@ describe("t285 - the knowledge skill ships everywhere, and its prose matches the
         // The space-relative directory the event landed in, e.g.
         // `spaces/default/intents/audit`.
         const rel = shards[0].slice(join(proj, "aidlc").length + 1);
-        const shardDir = rel.slice(0, rel.lastIndexOf("/"));
+        const shardDir = dirname(rel).replaceAll("\\", "/");
         expect(shardDir).toBe("spaces/default/intents/audit");
 
         // The doc must name that shape, generalised over the space name.

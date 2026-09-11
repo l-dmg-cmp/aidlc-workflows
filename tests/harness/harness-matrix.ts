@@ -13,6 +13,7 @@ type ReviewerScopeRegistration =
   | "cursor-hooks"
   | "kiro-agent-json"
   | "opencode-plugin"
+  | "aicockpit-plugin"
   | "unsupported";
 
 type HarnessCapabilities = {
@@ -36,7 +37,8 @@ type HarnessCapabilities = {
     | "cursor-rule"
     | "kiro-resources"
     | "kiro-steering"
-    | "opencode-instructions";
+    | "opencode-instructions"
+    | "aicockpit-instructions";
   kiroAgentJson: boolean;
   ideAgentTools: boolean;
   reviewerScopeRegistration: ReviewerScopeRegistration;
@@ -46,6 +48,25 @@ type HarnessCapabilities = {
 // explicit makes harness-specific test selection reviewable and prevents a new
 // manifest from inheriting an accidental default.
 const HARNESS_CAPABILITIES = {
+  aicockpit: {
+    harnessDir: ".aicockpit",
+    onboarding: {
+      mode: "manifest",
+      fills: "onboarding.fills.ts",
+      dist: "AGENTS.md",
+    },
+    rootFiles: [".gitignore", "AGENTS.md", "aicockpit.json"],
+    skillsRoot: ".aicockpit/skills",
+    plugin: {
+      kind: "store",
+      manifestDir: ".aicockpit-plugin",
+      wiringFile: "hooks/hooks.json",
+    },
+    memoryInclude: "aicockpit-instructions",
+    kiroAgentJson: false,
+    ideAgentTools: false,
+    reviewerScopeRegistration: "aicockpit-plugin",
+  },
   claude: {
     harnessDir: ".claude",
     onboarding: {
@@ -281,6 +302,10 @@ function validateManifest(
         manifest.onboarding.dst === "AGENTS.md" &&
         manifest.harnessDir === ".aidlc" &&
         manifest.skipRunnerGen === true) ||
+    (capabilities.memoryInclude === "opencode-instructions") !==
+      manifest.harnessFiles.some((file) => file.dst === "opencode.json") ||
+    (capabilities.memoryInclude === "aicockpit-instructions") !==
+      manifest.harnessFiles.some((file) => file.dst === "aicockpit.json") ||
     (capabilities.memoryInclude === "cursor-rule") !==
       manifest.harnessFiles.some((file) => file.dst === "rules/aidlc.mdc")
   ) {

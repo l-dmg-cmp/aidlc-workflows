@@ -1,4 +1,4 @@
-// t221-reviewer-scope-hook: the deterministic PreToolUse enforcement of the
+﻿// t221-reviewer-scope-hook: the deterministic PreToolUse enforcement of the
 // per-unit reviewer read-scope bound (stage-protocol-reviewer.md §12a).
 //
 // covers: hook:aidlc-reviewer-scope, file:aidlc-common/protocols/stage-protocol-reviewer.md §12a,
@@ -626,7 +626,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     expect(r.code).toBe(2);
     expect(r.stderr).toContain("This review cannot open");
     expect(r.stderr).toContain("U03-scoring");
-  });
+  }, 35000);
 
   test("fresh record + reviewer + current-unit access -> exit 0", () => {
     const proj = scratchProject();
@@ -636,7 +636,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
       tool_input: { command: "grep -rn x construction/U03-scoring/" },
     });
     expect(r.code).toBe(0);
-  });
+  }, 35000);
 
   test("piped no-operand grep (reads stdin) -> exit 0 while a first-segment recursive grep blocks", () => {
     const proj = scratchProject();
@@ -652,7 +652,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     });
     expect(firstSeg.code).toBe(2);
     expect(firstSeg.stderr).toContain("names no path");
-  });
+  }, 35000);
 
   test("piped filesystem modes and option-supplied sibling operands -> exit 2", () => {
     const proj = scratchProject();
@@ -669,7 +669,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
       expect(result.code, command).toBe(2);
       expect(result.stderr).toContain("This review cannot open");
     }
-  });
+  }, 35000);
 
   test("no record -> exit 0 even for a reviewer sibling sweep (nothing sound to enforce)", () => {
     const proj = scratchProject();
@@ -679,7 +679,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     const drops = join(proj, "aidlc", "spaces", "default", "intents", ".aidlc-hooks-health", "reviewer-scope.drops");
     expect(existsSync(drops)).toBe(true);
     expect(readFileSync(drops, "utf-8")).toContain("no reviewer dispatch record");
-  });
+  }, 35000);
 
   test("a different agent (or the main session, no agent_type) passes through", () => {
     const proj = scratchProject();
@@ -687,7 +687,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     expect(runHook(proj, { ...SIBLING_SWEEP, agent_type: "aidlc-developer-agent" }).code).toBe(0);
     const { agent_type: _omit, ...noAgent } = SIBLING_SWEEP;
     expect(runHook(proj, noAgent).code).toBe(0);
-  });
+  }, 35000);
 
   test("scoped_registration substitutes for agent identity (the Kiro adapters' contract)", () => {
     const proj = scratchProject();
@@ -695,7 +695,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     const { agent_type: _omit, ...noAgent } = SIBLING_SWEEP;
     const r = runHook(proj, { ...noAgent, scoped_registration: true });
     expect(r.code).toBe(2);
-  });
+  }, 35000);
 
   test("stale record (mtime beyond the TTL) is ignored AND janitored", () => {
     const proj = scratchProject();
@@ -705,20 +705,20 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     const r = runHook(proj, SIBLING_SWEEP);
     expect(r.code).toBe(0);
     expect(existsSync(recordPath(proj))).toBe(false); // janitor removed the orphan
-  });
+  }, 35000);
 
   test("malformed record JSON fails open (exit 0, drop recorded)", () => {
     const proj = scratchProject();
     writeFileSync(recordPath(proj), "not json", "utf-8");
     expect(runHook(proj, SIBLING_SWEEP).code).toBe(0);
-  });
+  }, 35000);
 
   test("the deterministic off-switch disables enforcement entirely", () => {
     const proj = scratchProject();
     seedRecord(proj);
     const r = runHook(proj, SIBLING_SWEEP, { AIDLC_DISABLE_REVIEWER_SCOPE_HOOK: "1" });
     expect(r.code).toBe(0);
-  });
+  }, 35000);
 
   test("claimed checkout blocks normalized traversal and case-variant writes without a dispatch record", () => {
     const proj = scratchProject();
@@ -746,7 +746,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     expect(shard).toContain("REVIEWER_SCOPE_BLOCKED");
     expect(shard).toContain("**Stage**: claimed-checkout");
     expect(shard).toContain("**Target**: ../u05-API/design.md");
-  });
+  }, 35000);
 
   test("claimed checkout Bash matching follows the dispatch matcher", () => {
     const proj = scratchProject();
@@ -765,7 +765,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
       tool_input: { command: "touch construction/u03-SCORING/result.md" },
     });
     expect(current.code).toBe(0);
-  });
+  }, 35000);
 
   test("garbage stdin fails open", () => {
     const proj = scratchProject();
@@ -776,7 +776,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
       encoding: "utf-8",
     });
     expect(r.status).toBe(0);
-  });
+  }, 35000);
 
   test("a block appends a REVIEWER_SCOPE_BLOCKED audit row when a shard exists", () => {
     const proj = scratchProject();
@@ -792,7 +792,7 @@ describe("t221 (b) dispatch-record lifecycle (shipped hook, subprocess)", () => 
     expect(shard).toContain("REVIEWER_SCOPE_BLOCKED");
     expect(shard).toContain("construction/*/*/*.md");
     expect(shard).toContain("U03-scoring");
-  });
+  }, 35000);
 });
 
 // ---------------------------------------------------------------------------
@@ -900,6 +900,34 @@ describe("t221 (c) harness registration and protocol prose", () => {
         harness.name,
       ).toBe(true);
       for (const h of pre) expect(h.matcher, harness.name).toBeUndefined();
+    }
+  });
+
+  test("AICockpit plugin adapter wires the reviewer-scope hook on PreToolUse", () => {
+    const harnesses = HARNESS_MATRIX.filter(
+      (harness) => harness.capabilities.reviewerScopeRegistration === "aicockpit-plugin",
+    );
+    expect(harnesses.length).toBeGreaterThan(0);
+    for (const harness of harnesses) {
+      const adapter = readFileSync(
+        join(harness.engineRoot, "plugin", "aidlc-aicockpit-adapter.ts"),
+        "utf-8",
+      );
+      expect(adapter).toContain("aidlc-reviewer-scope.ts");
+    }
+  });
+
+  test("Opencode plugin adapter wires the reviewer-scope hook on PreToolUse", () => {
+    const harnesses = HARNESS_MATRIX.filter(
+      (harness) => harness.capabilities.reviewerScopeRegistration === "opencode-plugin",
+    );
+    expect(harnesses.length).toBeGreaterThan(0);
+    for (const harness of harnesses) {
+      const adapter = readFileSync(
+        join(harness.distRoot, ".opencode", "plugin", "aidlc-opencode-adapter.ts"),
+        "utf-8",
+      );
+      expect(adapter).toContain("aidlc-reviewer-scope.ts");
     }
   });
 

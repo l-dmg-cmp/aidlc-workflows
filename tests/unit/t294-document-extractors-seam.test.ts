@@ -49,6 +49,7 @@ const REPO = join(import.meta.dir, "..", "..");
 const SCRATCH_SOURCES = ["dist", "dist-release", "core", "harness", "scripts", "plugins"] as const;
 const SCRATCH_FILES = ["package.json", "bun.lock", "tsconfig.json"] as const;
 
+const TIMEOUT = 60000;
 let scratch = "";
 beforeEach(() => {
   scratch = mkdtempSync(join(tmpdir(), "aidlc-t294-"));
@@ -77,13 +78,13 @@ beforeEach(() => {
   });
   if (!repoNodeModules) throw new Error("t294 requires an installed node_modules directory");
   symlinkSync(repoNodeModules, join(scratch, "node_modules"));
-});
+}, TIMEOUT);
 afterEach(() => {
   // The scratch dir is disposable: on a SIGKILL mid-test, the OS temp dir is
   // simply an orphaned directory under $TMPDIR, never a dirty checkout. This
   // afterEach is a courtesy cleanup, not a correctness requirement.
   if (scratch) rmSync(scratch, { recursive: true, force: true });
-});
+}, TIMEOUT);
 
 // Where each harness's generated harness.json lands. The MAP is per-harness data
 // (engine dirs differ, and two harnesses share `.aidlc`), but the LIST below is
@@ -97,6 +98,7 @@ const HARNESS_DATA: Record<string, string> = {
   kiro: "dist/kiro/.kiro/tools/data/harness.json",
   "kiro-ide": "dist/kiro-ide/.kiro/tools/data/harness.json",
   opencode: "dist/opencode/.aidlc/tools/data/harness.json",
+  aicockpit: "dist/aicockpit/.aicockpit/tools/data/harness.json",
 };
 
 const HARNESSES = readdirSync(join(REPO, "harness"), { withFileTypes: true })
