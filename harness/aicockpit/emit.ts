@@ -18,7 +18,7 @@
 // which aicockpit never scans; the shipped aicockpit.json registers
 // `skills.paths: [".aicockpit/skills"]` for skill discovery there.
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { EmitContext } from "../../scripts/manifest-types.ts";
 import {
