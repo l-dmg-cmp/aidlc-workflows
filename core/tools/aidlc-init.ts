@@ -511,7 +511,8 @@ function modelHarness(value: string): ModelHarness {
     value === "cursor" ||
     value === "kiro" ||
     value === "kiro-ide" ||
-    value === "opencode"
+    value === "opencode" ||
+    value === "aicockpit"
   ) {
     return value;
   }
@@ -4326,6 +4327,9 @@ function firstRunNextCommands(distribution: string): [string, string] {
   }
   if (distribution === "opencode") {
     return ["opencode                       open opencode in this repo", '/aidlc "what you want built"  describe your first intent'];
+  }
+  if (distribution === "aicockpit") {
+    return ["aicockpit                      open AICockpit in this repo", '/aidlc "what you want built"  describe your first intent'];
   }
   if (distribution === "cursor") {
     return ["cursor                         open Cursor in this repo", '/aidlc "what you want built"  describe your first intent'];

@@ -58,6 +58,7 @@ const HARNESS_NAME = (() => {
   } catch {
     // Legacy installs did not record a distribution name.
   }
+  if (HARNESS_LEAF === ".aicockpit") return "aicockpit";
   if (HARNESS_LEAF === ".aidlc") {
     return existsSync(join(PROJECT_DIR, ".github", "hooks", "aidlc.json"))
       ? "copilot"
@@ -67,6 +68,7 @@ const HARNESS_NAME = (() => {
 })();
 const IS_COPILOT = HARNESS_NAME === "copilot";
 const IS_OPENCODE = HARNESS_NAME === "opencode";
+const IS_AICOCKPIT = HARNESS_NAME === "aicockpit";
 const STAGES_DIR = join(HARNESS_DIR, "aidlc-common", "stages");
 const SKILLS_DIR = IS_COPILOT
   ? join(PROJECT_DIR, ".github", "skills")
@@ -136,6 +138,7 @@ function pluginNameFromRoot(): string {
     ".claude-plugin",
     ".codex-plugin",
     ".opencode-plugin",
+    ".aicockpit-plugin",
     ".cursor-plugin",
     ".plugin",
     ".kiro-plugin",
@@ -887,20 +890,20 @@ function migrateExistingKiroAgent(
   return "written";
 }
 
-function opencodeNativeAgentPrecheck(dst: string): CopyPrecheck {
+function opencodeNativeAgentPrecheck(dst: string, harnessName: string = "OpenCode"): CopyPrecheck {
   const collision = installedNameCollisionPrecheck(dst, "agents");
   return (ctx) => {
     if (!collision(ctx)) return false;
     if (!ctx.content.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n/)) {
       recordDrop(
-        `plugin "${PLUGIN_NAME}" agent file "${ctx.rel}" has no closed frontmatter block; not copied to OpenCode's native roster`,
+        `plugin "${PLUGIN_NAME}" agent file "${ctx.rel}" has no closed frontmatter block; not copied to ${harnessName}'s native roster`,
       );
       return false;
     }
     const disallowed = frontmatter(ctx.content).match(/^disallowedTools:\s*(.*?)\s*$/m)?.[1];
     if (disallowed && !/^\s*Task\s*$/i.test(disallowed)) {
       recordDrop(
-        `plugin "${PLUGIN_NAME}" agent file "${ctx.rel}" cannot project disallowedTools "${disallowed}" to OpenCode; not copied`,
+        `plugin "${PLUGIN_NAME}" agent file "${ctx.rel}" cannot project disallowedTools "${disallowed}" to ${harnessName}; not copied`,
       );
       return false;
     }
@@ -1072,7 +1075,7 @@ interface KiroPluginAgentPrechecks {
 // A plugin persona is the source for the native twin emitted later in this
 // pass, so accept a stage reference only when that twin survives projection.
 function nativeAgentsDir(): string {
-  return join(PROJECT_DIR, IS_COPILOT ? ".github" : ".opencode", "agents");
+  return join(PROJECT_DIR, IS_COPILOT ? ".github" : IS_AICOCKPIT ? ".aicockpit" : ".opencode", "agents");
 }
 
 function pluginShipsViableNativeAgent(agent: string): boolean {
@@ -1300,7 +1303,9 @@ async function kiroPluginAgentPrechecks(): Promise<KiroPluginAgentPrechecks | nu
               ? `author ${HARNESS_LEAF}/agents/${gap.agent}.toml (the shipped aidlc-*-agent.toml shape)`
               : IS_COPILOT
                 ? `author .github/agents/${gap.agent}.md (a Copilot custom agent with closed frontmatter)`
-                : `author .opencode/agents/${gap.agent}.md (an OpenCode subagent with closed frontmatter)`,
+                : IS_AICOCKPIT
+                  ? `author .aicockpit/agents/${gap.agent}.md (an AICockpit subagent with closed frontmatter)`
+                  : `author .opencode/agents/${gap.agent}.md (an OpenCode subagent with closed frontmatter)`,
       );
     }
     if (gap.missingTrust) {
@@ -1898,13 +1903,13 @@ try {
             : undefined,
       HARNESS_LEAF === ".kiro" ? migrateExistingKiroAgent : undefined,
     ) || changed;
-    if (IS_OPENCODE) {
+    if (IS_OPENCODE || IS_AICOCKPIT) {
       const rosterDir = nativeAgentsDir();
       changed = copyTreeNoClobber(
         join(PLUGIN_ROOT, "agents"),
         rosterDir,
-        "OpenCode native agents",
-        opencodeNativeAgentPrecheck(rosterDir),
+        `${IS_AICOCKPIT ? "AICockpit" : "OpenCode"} native agents`,
+        opencodeNativeAgentPrecheck(rosterDir, IS_AICOCKPIT ? "AICockpit" : "OpenCode"),
         (ctx) => projectOpencodeAgentMemory(emitOpencodeNativeAgent(ctx)),
       ) || changed;
     } else if (IS_COPILOT) {

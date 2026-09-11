@@ -93,6 +93,7 @@ export type TierProjection = {
    *  session's opencode.json defaults — same inherit-by-omission contract
    *  as codex. */
   opencode: { model: string | null; variant: OpencodeVariant | null };
+  aicockpit: { model: string | null; variant: OpencodeVariant | null };
   /** Copilot CLI + VS Code agent mode share one dist (one .github/ tree), and
    *  the model slot is model-only AND always omitted BY DESIGN, like kiro:
    *  the two surfaces disagree on `model:` value syntax (the CLI forwards the
@@ -123,6 +124,7 @@ export const TIER_PROJECTIONS: Record<Tier, TierProjection> = {
     codex: { model: null, effort: null },
     kiro: { model: null },
     opencode: { model: null, variant: null },
+    aicockpit: { model: null, variant: null },
     copilot: { model: null },
     cursor: { model: null },
   },
@@ -137,6 +139,7 @@ export const TIER_PROJECTIONS: Record<Tier, TierProjection> = {
     cursor: { model: null },
     kiro: { model: null },
     opencode: { model: "amazon-bedrock/global.anthropic.claude-sonnet-4-6", variant: "medium" },
+    aicockpit: { model: "amazon-bedrock/global.anthropic.claude-sonnet-4-6", variant: "medium" },
     copilot: { model: null },
   },
   templated: {
@@ -147,6 +150,7 @@ export const TIER_PROJECTIONS: Record<Tier, TierProjection> = {
     codex: { model: null, effort: null },
     kiro: { model: null },
     opencode: { model: null, variant: null },
+    aicockpit: { model: null, variant: null },
     copilot: { model: null },
     cursor: { model: null },
   },

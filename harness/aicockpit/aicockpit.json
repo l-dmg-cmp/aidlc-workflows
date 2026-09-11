@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aicockpit.ai/config.json",
+  "skills": { "paths": [".aidlc/skills"] },
+  "instructions": ["aidlc/spaces/default/memory/**/*.md"],
+  "permission": {
+    "edit": {
+      "*": "allow",
+      ".aidlc/tools/**": "ask",
+      ".aidlc/hooks/**": "ask"
+    },
+    "bash": {
+      "*": "ask",
+      "{{TOOL_PREFIX}}*": "allow"
+    }
+  }
+}

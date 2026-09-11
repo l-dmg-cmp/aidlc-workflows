@@ -209,6 +209,7 @@ function humanReport(
     kiro: "Kiro CLI",
     "kiro-ide": "Kiro IDE",
     opencode: "opencode",
+    aicockpit: "AICockpit",
   };
   const frameworkPattern =
     /^(?:Agent filename|Scope filename|Cycle detection|Orphan stage|Uncompiled stage|Enabled stage compile coverage|Scope validation|Schema validation|Graph references|Keyword overlap|Rule drift|Paired sensor coverage|Stage graph|Scope grid|Sensor |Required sections|Upstream coverage|Traceability|Linter|Type check)/i;

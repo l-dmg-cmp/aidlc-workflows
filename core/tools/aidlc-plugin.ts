@@ -65,7 +65,7 @@ export type InvalidInstalledPlugin = {
 
 export type PluginInventory = {
   capability: InventoryCapability;
-  harness: "claude" | "codex" | "kiro" | "cursor" | "copilot" | "opencode";
+  harness: "claude" | "codex" | "kiro" | "cursor" | "copilot" | "opencode" | "aicockpit";
   source?: string;
   installed: InstalledPlugin[];
   invalid: InvalidInstalledPlugin[];
@@ -190,7 +190,9 @@ function hostManifestDirectory(harness: PluginInventory["harness"]): string {
   if (harness === "kiro") return ".kiro-plugin";
   if (harness === "cursor") return ".cursor-plugin";
   if (harness === "copilot") return ".plugin";
-  return ".opencode-plugin";
+  if (harness === "opencode") return ".opencode-plugin";
+  if (harness === "aicockpit") return ".aicockpit-plugin";
+  throw new Error(`Unknown harness: ${harness}`);
 }
 
 export function normalizeInstalledPlugin(
@@ -259,13 +261,16 @@ function harnessKind(harnessDir = runtimeHarnessDir()): PluginInventory["harness
     declared === "kiro-ide" ||
     declared === "cursor" ||
     declared === "copilot" ||
-    declared === "opencode"
+    declared === "opencode" ||
+    declared === "aicockpit"
   ) {
     return declared === "kiro-ide" ? "kiro" : declared;
   }
   if (harnessDir === ".codex") return "codex";
   if (harnessDir === ".kiro") return "kiro";
   if (harnessDir === ".cursor") return "cursor";
+  if (harnessDir === ".aidlc") return "opencode";
+  if (harnessDir === ".aicockpit") return "aicockpit";
   return "claude";
 }
 
@@ -881,7 +886,7 @@ export function copyProjectSurfaces(
   harnessDir: string,
 ): void {
   mkdirSync(stagedProject, { recursive: true });
-  for (const entry of [harnessDir, ".agents", ".github", ".opencode", "aidlc"]) {
+  for (const entry of [harnessDir, ".agents", ".github", ".opencode", ".aicockpit", "aidlc"]) {
     const source = join(projectDir, entry);
     if (existsSync(source)) cpSync(source, join(stagedProject, entry), { recursive: true });
   }
@@ -1220,7 +1225,7 @@ function refreshGeneratedTable(
 
 function allSurfaceFiles(projectDir: string, harnessDir: string): Map<string, string> {
   const files = new Map<string, string>();
-  for (const entry of [harnessDir, ".agents", ".github", ".opencode", "aidlc"]) {
+  for (const entry of [harnessDir, ".agents", ".github", ".opencode", ".aicockpit", "aidlc"]) {
     const root = join(projectDir, entry);
     for (const path of surfaceFiles(root)) {
       files.set(relative(projectDir, path).split(sep).join("/"), path);

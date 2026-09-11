@@ -2650,8 +2650,9 @@ export async function collectDoctorReport(
         // Copilot has no project command allowlist. Its folder-trust contract
         // is checked separately below; this row verifies native hook wiring.
         nativePermission = nativeHooks;
-      } else if (currentHarnessName === "opencode") {
-        const configPath = ["opencode.json", "opencode.jsonc"]
+      } else if (currentHarnessName === "opencode" || currentHarnessName === "aicockpit") {
+        const nativeName = currentHarnessName === "aicockpit" ? "aicockpit" : "opencode";
+        const configPath = [`${nativeName}.json`, `${nativeName}.jsonc`]
           .map((name) => join(projectDir, name))
           .find(existsSync);
         try {
@@ -2666,7 +2667,7 @@ export async function collectDoctorReport(
           nativePermission = false;
         }
         nativeHooks = existsSync(
-          join(projectDir, ".opencode", "plugin", "aidlc-opencode-adapter.ts"),
+          join(projectDir, `.${nativeName}`, "plugin", `aidlc-${nativeName}-adapter.ts`),
         );
       }
       const nativeTrustReady = legacy.length === 0 && nativeHooks && nativePermission;
@@ -3025,9 +3026,9 @@ export async function collectDoctorReport(
       });
     }
     if (harness === ".aidlc") {
-      // Two harnesses ship the .aidlc runtime dir; the adapter file names the
+      // Three harnesses ship the .aidlc runtime dir; the adapter file names the
       // flavor. Copilot: a hooks/ shim inside the engine dir (wired by
-      // .github/hooks/aidlc.json). opencode: a plugin in the .opencode shell.
+      // .github/hooks/aidlc.json). opencode: a plugin in the .opencode shell. aicockpit: plugin in .aicockpit shell.
       const copilotAdapter = join(projectDir, harness, "hooks", "aidlc-copilot-adapter.ts");
       if (isCopilot) {
         results.push({
@@ -3036,6 +3037,16 @@ export async function collectDoctorReport(
           fix: projectedFileRepair(
             "copilot",
             ".aidlc/hooks/aidlc-copilot-adapter.ts",
+          ),
+        });
+      } else if (currentHarnessName === "aicockpit") {
+        const adapterPath = join(projectDir, ".aicockpit", "plugin", "aidlc-aicockpit-adapter.ts");
+        results.push({
+          pass: existsSync(adapterPath),
+          label: "plugin/aidlc-aicockpit-adapter.ts present (hook wiring)",
+          fix: projectedFileRepair(
+            "aicockpit",
+            ".aicockpit/plugin/aidlc-aicockpit-adapter.ts",
           ),
         });
       } else {
@@ -3198,6 +3209,19 @@ export async function collectDoctorReport(
       label: ".opencode/command/aidlc.md present (/aidlc entry point)",
       fix: projectedFileRepair("opencode", ".opencode/command/aidlc.md"),
     });
+  } else if (harness === ".aicockpit") {
+    const aicockpitJson = join(projectDir, "aicockpit.json");
+    const aicockpitJsonc = join(projectDir, "aicockpit.jsonc");
+    results.push({
+      pass: existsSync(aicockpitJson) || existsSync(aicockpitJsonc),
+      label: "aicockpit.json or aicockpit.jsonc present (permissions + method instructions glob)",
+      fix: projectedFileRepair("aicockpit", "aicockpit.json"),
+    });
+    results.push({
+      pass: existsSync(join(projectDir, ".aicockpit", "command", "aidlc.md")),
+      label: ".aicockpit/command/aidlc.md present (/aidlc entry point)",
+      fix: projectedFileRepair("aicockpit", ".aicockpit/command/aidlc.md"),
+    });
   } else {
     const settingsPath = join(projectDir, harness, "settings.json");
     results.push({
@@ -3210,7 +3234,7 @@ export async function collectDoctorReport(
   // 4b. Dual-harness coexistence (D-11): another harness tree installed AND a
   // workflow active is supported-but-untested — warn (advisory pass with a
   // visible label), never block.
-  const otherTrees = [".claude", ".kiro", ".codex", ".aidlc", ".cursor"].filter(
+  const otherTrees = [".claude", ".kiro", ".codex", ".aidlc", ".cursor", ".aicockpit"].filter(
     (h) => h !== harness && existsSync(join(projectDir, h, "tools", "aidlc-lib.ts")),
   );
   if (
@@ -5258,6 +5282,7 @@ const SCAN_EXCLUDE = new Set([
   ".kiro",
   ".codex",
   ".opencode",
+  ".aicockpit",
   ".aidlc",
   ".cursor",
   "aidlc-docs",

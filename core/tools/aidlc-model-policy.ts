@@ -46,7 +46,8 @@ export type ModelHarness =
   | "cursor"
   | "kiro"
   | "kiro-ide"
-  | "opencode";
+  | "opencode"
+  | "aicockpit";
 export type ModelPolicyLayer =
   | "agent-exception"
   | "group-dial"
@@ -127,7 +128,14 @@ export const HARNESS_HONESTY = Object.freeze({
     effort: true,
     groupEffort: true,
     message:
-      "opencode can express model and variant policy; xhigh effort clamps down to high.",
+      "OpenCode can express model and variant policy; xhigh effort clamps down to high.",
+  }),
+  aicockpit: Object.freeze({
+    model: true,
+    effort: true,
+    groupEffort: true,
+    message:
+      "AICockpit can express model and variant policy; xhigh effort clamps down to high.",
   }),
   kiro: Object.freeze({
     model: true,
@@ -361,7 +369,7 @@ function clampEffort(
   if (harness === "codex" && effort === "max") {
     return { effort: "xhigh", clamped: { from: "max", to: "xhigh" } };
   }
-  if (harness === "opencode" && effort === "xhigh") {
+  if ((harness === "opencode" || harness === "aicockpit") && effort === "xhigh") {
     return { effort: "high", clamped: { from: "xhigh", to: "high" } };
   }
   return { effort };
@@ -607,11 +615,12 @@ export function applyModelPolicyToProjection(
       if (!existsSync(path)) throw new Error(`${path}: missing agent surface`);
       writeFileSync(path, writeCodexAgentSurface(readFileSync(path, "utf-8"), item));
     }
-  } else if (harness === "opencode") {
+  } else if (harness === "opencode" || harness === "aicockpit") {
     for (const item of effective) {
+      const nativeTarget = harness === "aicockpit" ? ".aicockpit" : ".opencode";
       const path = join(
         projectionRoot,
-        ".opencode",
+        nativeTarget,
         "agents",
         `${modelAgentStem(item.agent)}.md`,
       );
@@ -726,8 +735,9 @@ export function modelPolicySurfaceDrift(
     } else if (harness === "codex") {
       path = join(harnessRoot, "agents", `${modelAgentStem(name)}.toml`);
       if (existsSync(path)) actual = codexSurfaceValues(readFileSync(path, "utf-8"));
-    } else if (harness === "opencode") {
-      path = join(projectDir, ".opencode", "agents", `${modelAgentStem(name)}.md`);
+    } else if (harness === "opencode" || harness === "aicockpit") {
+      const nativeTarget = harness === "aicockpit" ? ".aicockpit" : ".opencode";
+      path = join(projectDir, nativeTarget, "agents", `${modelAgentStem(name)}.md`);
       if (existsSync(path)) actual = markdownSurfaceValues(readFileSync(path, "utf-8"), "variant");
     } else if (harness === "kiro") {
       path = join(harnessRoot, "agents", `${modelAgentStem(name)}.json`);

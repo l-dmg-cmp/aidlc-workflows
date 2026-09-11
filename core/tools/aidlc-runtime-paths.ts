@@ -25,7 +25,7 @@ export interface ProjectHarness {
   frameworkVersion?: string;
 }
 
-const HARNESS_PRECEDENCE = [".claude", ".kiro", ".codex", ".cursor", ".aidlc"] as const;
+const HARNESS_PRECEDENCE = [".claude", ".kiro", ".codex", ".cursor", ".aidlc", ".aicockpit"] as const;
 
 function markerRecord(path: string): Record<string, unknown> {
   let value: unknown;
@@ -234,6 +234,7 @@ export function runtimeHarnessName(
   // Copilot and OpenCode intentionally share .aidlc. Their harness.json name
   // above is the authoritative discriminator; retain OpenCode only as the
   // metadata-unavailable compatibility fallback.
+  if (harnessDir === ".aicockpit") return "aicockpit";
   if (harnessDir === ".aidlc") return "opencode";
   if (harnessDir === ".codex") return "codex";
   if (harnessDir === ".kiro") return "kiro";
