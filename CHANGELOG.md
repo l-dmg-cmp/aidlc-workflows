@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.0] - 2026-09-11
+
+Add support for the AICockpit harness as a native AI-DLC runner. The `install.sh` and `install.ps1` commands now point to the correct upstream URLs for the new fork.
+
+* Added `harness/aicockpit/` directory and related projection rules.
+* Updated URLs and references in documentation and installer scripts from `awslabs/aidlc-workflows` to `l-dmg-cmp/aidlc-workflows`.
+* `aidlc config --harness aicockpit` is now supported.
+
 ## [2.8.2] - 2026-09-10
 
 Preserve summary confirmations when an Assumption Confirmation section is appended with a decorative divider, and improve review-findings table diagnostics so malformed rows report their cell count and expected column order without guessing which column was omitted. The intended development release version is 2.8.2. **Upgrade:** `aidlc update`, or `install.sh --version 2.8.2` / `install.ps1 -Version 2.8.2`. A summary receipt recorded before this fix over a body that already contained the newly excluded divider may need one fresh confirmation after upgrading; no other migration is required.
