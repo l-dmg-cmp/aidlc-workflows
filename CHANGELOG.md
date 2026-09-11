@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.2] - 2026-09-11
+
+Fix the AICockpit emitter lint warning that blocked the release verification pipeline. **Upgrade:** install version 2.9.2 after the release is published.
+
+* Removed the unused `rmSync` import from `harness/aicockpit/emit.ts`.
+
 ## [2.9.1] - 2026-09-11
 
 Fix AICockpit harness validation so release builds and `aidlc doctor` recognize its CLI and hook adapter. **Upgrade:** `aidlc update`, or install version 2.9.1 after the release is published.
