@@ -3028,7 +3028,7 @@ export async function collectDoctorReport(
     if (harness === ".aidlc") {
       // Three harnesses ship the .aidlc runtime dir; the adapter file names the
       // flavor. Copilot: a hooks/ shim inside the engine dir (wired by
-      // .github/hooks/aidlc.json). opencode: a plugin in the .opencode shell. aicockpit: plugin in .aicockpit shell.
+      // .github/hooks/aidlc.json). opencode: a plugin in the .opencode shell.
       const copilotAdapter = join(projectDir, harness, "hooks", "aidlc-copilot-adapter.ts");
       if (isCopilot) {
         results.push({
@@ -3037,16 +3037,6 @@ export async function collectDoctorReport(
           fix: projectedFileRepair(
             "copilot",
             ".aidlc/hooks/aidlc-copilot-adapter.ts",
-          ),
-        });
-      } else if (currentHarnessName === "aicockpit") {
-        const adapterPath = join(projectDir, ".aicockpit", "plugin", "aidlc-aicockpit-adapter.ts");
-        results.push({
-          pass: existsSync(adapterPath),
-          label: "plugin/aidlc-aicockpit-adapter.ts present (hook wiring)",
-          fix: projectedFileRepair(
-            "aicockpit",
-            ".aicockpit/plugin/aidlc-aicockpit-adapter.ts",
           ),
         });
       } else {
@@ -3060,6 +3050,16 @@ export async function collectDoctorReport(
           ),
         });
       }
+    } else if (harnessDir() === ".aicockpit") {
+      const adapterPath = join(projectDir, ".aicockpit", "plugin", "aidlc-aicockpit-adapter.ts");
+      results.push({
+        pass: existsSync(adapterPath),
+        label: "plugin/aidlc-aicockpit-adapter.ts present (hook wiring)",
+        fix: projectedFileRepair(
+          "aicockpit",
+          ".aicockpit/plugin/aidlc-aicockpit-adapter.ts",
+        ),
+      });
     }
   }
 

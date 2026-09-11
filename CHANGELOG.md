@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.1] - 2026-09-11
+
+Fix AICockpit harness validation so release builds and `aidlc doctor` recognize its CLI and hook adapter. **Upgrade:** `aidlc update`, or install version 2.9.1 after the release is published.
+
+* Added the missing `aicockpit` CLI diagnostic definition.
+* Fixed the AICockpit hook-adapter diagnostic path and harness detection.
+
 ## [2.9.0] - 2026-09-11
 
 Add support for the AICockpit harness as a native AI-DLC runner. The `install.sh` and `install.ps1` commands now point to the correct upstream URLs for the new fork.

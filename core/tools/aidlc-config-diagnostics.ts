@@ -642,12 +642,18 @@ const HARNESS_CLI: Record<
     required: false,
     install: "Kiro IDE has no required separate CLI for this project surface.",
   },
-  opencode: {
-    command: "opencode",
-    required: true,
-    install: "Install opencode and ensure `opencode --version` works.",
-  },
-};
+      opencode: {
+        command: "opencode",
+        required: true,
+        minimumVersion: "1.17.0",
+        install: "npm install -g opencode",
+      },
+      aicockpit: {
+        command: "aicockpit",
+        required: true,
+        install: "npm install -g aicockpit",
+      },
+    };
 
 function versionTuple(value: string): [number, number, number] | null {
   const match = value.match(/(\d+)\.(\d+)\.(\d+)/);
