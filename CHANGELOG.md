@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.4] - 2026-09-11
+
+Synchronize README version badge with current release version. **Upgrade:** install version 2.9.4 after the release is published.
+
+* Updated README.md version badge to match `aidlc-version.ts`.
+
 ## [2.9.3] - 2026-09-11
 
 Add AICockpit test matrix capabilities, documentation roster mappings, and hook conformance tests to unblock the release pipeline. **Upgrade:** install version 2.9.3 after the release is published.
