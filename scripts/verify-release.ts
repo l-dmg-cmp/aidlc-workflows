@@ -15,6 +15,7 @@ import {
 } from "../core/tools/aidlc-release.ts";
 
 const RELEASE_DISTRIBUTIONS = [
+  "aicockpit",
   "claude",
   "codex",
   "copilot",
@@ -22,7 +23,6 @@ const RELEASE_DISTRIBUTIONS = [
   "kiro",
   "kiro-ide",
   "opencode",
-  "aicockpit",
 ] as const;
 
 function releaseAssets(version: string): Map<string, {

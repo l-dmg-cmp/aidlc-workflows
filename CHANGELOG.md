@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.6] - 2026-09-11
+
+Fix release candidate inventory alphabetical sorting and wizard selection index in unit shard 2. **Upgrade:** install version 2.9.6 after the release is published.
+
+* Sorted `RELEASE_DISTRIBUTIONS` alphabetically in `scripts/verify-release.ts` to match `version.json` candidate inventory verification.
+* Updated wizard selection test input in `tests/unit/t299-first-run-wizard.test.ts` to select Codex CLI with `aicockpit` present.
+
 ## [2.9.5] - 2026-09-11
 
 Fix test matrix conformance, first-run wizard selection, conductor skill count, and release packaging gitignore tracking. **Upgrade:** install version 2.9.5 after the release is published.

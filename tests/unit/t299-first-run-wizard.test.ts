@@ -265,7 +265,7 @@ describe("t299 first-run setup wizard", () => {
   });
 
   test("multiple detected CLIs use the seam-driven numbered harness picker first", () => {
-    const result = runWizard("2\n\n", {
+    const result = runWizard("3\n\n", {
       harnesses: {
         aicockpit: { found: false },
         claude: { found: true, version: "claude 2.1.220" },
