@@ -1,6 +1,6 @@
 # Release supply chain
 
-AI-DLC releases are created in `awslabs/aidlc-workflows` by two isolated
+AI-DLC releases are created in `l-dmg-cmp/aidlc-workflows` by two isolated
 workflows: `.github/workflows/release.yml` for stable tags and
 `.github/workflows/preview-release.yml` for scheduled or manually dispatched
 previews. Both use the repository-provided `GITHUB_TOKEN`. Neither requires a
@@ -84,7 +84,7 @@ gate and build jobs when that repository setting is disabled.
 When a compatible GitHub CLI is available, installers verify `checksums.txt`
 against that bundle and bind verification to:
 
-- `awslabs/aidlc-workflows`;
+- `l-dmg-cmp/aidlc-workflows`;
 - `.github/workflows/release.yml` for stable versions or
   `.github/workflows/preview-release.yml` for preview versions;
 - the version tag for stable releases or `refs/heads/main` for previews;

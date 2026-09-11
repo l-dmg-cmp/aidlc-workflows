@@ -561,7 +561,7 @@ describe("documentation parity derives current behavior from authored implementa
     };
     expect(pkg.name).toBe("aidlc-workflows-dev");
     expect(pkg.description).toContain("multi-harness");
-    expect(pkg.repository.url).toBe("https://github.com/awslabs/aidlc-workflows");
+    expect(pkg.repository.url).toBe("https://github.com/l-dmg-cmp/aidlc-workflows");
     expect(pkg.repository.directory).toBeUndefined();
     expect(read("bun.lock")).toContain(`"name": "${pkg.name}"`);
   });

@@ -11,13 +11,13 @@ Cursor, opencode, and GitHub Copilot.
 macOS, Linux, or WSL:
 
 ```bash
-curl -fsSL https://github.com/awslabs/aidlc-workflows/releases/latest/download/install.sh | sh
+curl -fsSL https://github.com/l-dmg-cmp/aidlc-workflows/releases/latest/download/install.sh | sh
 ```
 
 Windows PowerShell:
 
 ```powershell
-irm https://github.com/awslabs/aidlc-workflows/releases/latest/download/install.ps1 | iex
+irm https://github.com/l-dmg-cmp/aidlc-workflows/releases/latest/download/install.ps1 | iex
 ```
 
 The native installer includes every harness runtime and does not require Bun or

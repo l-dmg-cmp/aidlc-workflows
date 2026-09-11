@@ -122,15 +122,15 @@ frequently; each linked pull request is authoritative.
 
 | PR | Work | Theme |
 | --- | --- | --- |
-| [#756](https://github.com/awslabs/aidlc-workflows/pull/756) | Native distribution, six-command CLI, config policy and release hardening | Installation and releases |
-| [#775](https://github.com/awslabs/aidlc-workflows/pull/775) | Unified Kiro distribution aligned to the agent harness | Harness parity |
-| [#782](https://github.com/awslabs/aidlc-workflows/pull/782) | Product-discovery plugin (AI-PLC) | Plugins and product discovery |
-| [#799](https://github.com/awslabs/aidlc-workflows/pull/799) | Adversarial AI pull-request review agent | CI and verification |
-| [#969](https://github.com/awslabs/aidlc-workflows/pull/969) | Construction integration through pull requests | Delivery workflow |
-| [#968](https://github.com/awslabs/aidlc-workflows/pull/968) | Devin CLI and Desktop harness | Harness expansion |
-| [#907](https://github.com/awslabs/aidlc-workflows/pull/907) | mabl verification plugin | Plugins and verification |
-| [#753](https://github.com/awslabs/aidlc-workflows/pull/753) | Evaluator integration | Evaluation |
-| [#526](https://github.com/awslabs/aidlc-workflows/pull/526) | Product discovery in Ideation | Product discovery |
+| [#756](https://github.com/l-dmg-cmp/aidlc-workflows/pull/756) | Native distribution, six-command CLI, config policy and release hardening | Installation and releases |
+| [#775](https://github.com/l-dmg-cmp/aidlc-workflows/pull/775) | Unified Kiro distribution aligned to the agent harness | Harness parity |
+| [#782](https://github.com/l-dmg-cmp/aidlc-workflows/pull/782) | Product-discovery plugin (AI-PLC) | Plugins and product discovery |
+| [#799](https://github.com/l-dmg-cmp/aidlc-workflows/pull/799) | Adversarial AI pull-request review agent | CI and verification |
+| [#969](https://github.com/l-dmg-cmp/aidlc-workflows/pull/969) | Construction integration through pull requests | Delivery workflow |
+| [#968](https://github.com/l-dmg-cmp/aidlc-workflows/pull/968) | Devin CLI and Desktop harness | Harness expansion |
+| [#907](https://github.com/l-dmg-cmp/aidlc-workflows/pull/907) | mabl verification plugin | Plugins and verification |
+| [#753](https://github.com/l-dmg-cmp/aidlc-workflows/pull/753) | Evaluator integration | Evaluation |
+| [#526](https://github.com/l-dmg-cmp/aidlc-workflows/pull/526) | Product discovery in Ideation | Product discovery |
 
 <!-- markdownlint-enable MD013 -->
 
@@ -142,15 +142,15 @@ but do not yet have committed release versions.
 ### Traceability and progressive enrichment
 
 - Per-stage upstream traceability enforcement shipped in
-  [#401](https://github.com/awslabs/aidlc-workflows/pull/401). Source-bound review
+  [#401](https://github.com/l-dmg-cmp/aidlc-workflows/pull/401). Source-bound review
   evidence shipped in
-  [#646](https://github.com/awslabs/aidlc-workflows/pull/646), stale stage-result
+  [#646](https://github.com/l-dmg-cmp/aidlc-workflows/pull/646), stale stage-result
   propagation shipped in
-  [#716](https://github.com/awslabs/aidlc-workflows/pull/716), and per-Unit
+  [#716](https://github.com/l-dmg-cmp/aidlc-workflows/pull/716), and per-Unit
   attribution shipped in
-  [#813](https://github.com/awslabs/aidlc-workflows/pull/813).
+  [#813](https://github.com/l-dmg-cmp/aidlc-workflows/pull/813).
 - Cross-unit discovery propagation remains open
-  ([#299](https://github.com/awslabs/aidlc-workflows/issues/299)/[#300](https://github.com/awslabs/aidlc-workflows/pull/300)).
+  ([#299](https://github.com/l-dmg-cmp/aidlc-workflows/issues/299)/[#300](https://github.com/l-dmg-cmp/aidlc-workflows/pull/300)).
 - Preserve progressive enrichment as the North Star destination: downstream
   stages enrich upstream artefacts in place, with ADRs as a core design artefact.
 - Commit-level provenance is implemented as content-derived attribution:
@@ -179,9 +179,9 @@ but do not yet have committed release versions.
 
 ### Governed feedback loops
 
-- [#616](https://github.com/awslabs/aidlc-workflows/pull/616) shipped one
+- [#616](https://github.com/l-dmg-cmp/aidlc-workflows/pull/616) shipped one
   bounded Build & Test to Code Generation return path for
-  [#611](https://github.com/awslabs/aidlc-workflows/issues/611). It is an
+  [#611](https://github.com/l-dmg-cmp/aidlc-workflows/issues/611). It is an
   incremental loop, not a general cyclic graph engine.
 - General cross-stage backward edges still need engine-level governance, stale
   artefact handling and explicit human authorization.
@@ -190,92 +190,92 @@ but do not yet have committed release versions.
 
 - The plugin mechanism, content projection, selection and plugin-contributed
   scopes are shipped; the plugin test kit and authoring tiers shipped in
-  [#792](https://github.com/awslabs/aidlc-workflows/pull/792).
+  [#792](https://github.com/l-dmg-cmp/aidlc-workflows/pull/792).
 - Plugin-extensible doctor checks shipped in
-  [#797](https://github.com/awslabs/aidlc-workflows/pull/797). The offline plugin
+  [#797](https://github.com/l-dmg-cmp/aidlc-workflows/pull/797). The offline plugin
   CREATE, VALIDATE, BUILD, and TEST authoring tiers ship as
   the standalone `aidlc-plugin-create.ts`, `aidlc-plugin-validate.ts`,
   `aidlc-plugin-build.ts`, and `aidlc-plugin-test.ts` tools. The top-level
   `plugin validate` and `plugin build` routes also ship. Top-level
   `plugin create` and `plugin test` routes remain proposed in
-  [#723](https://github.com/awslabs/aidlc-workflows/issues/723).
+  [#723](https://github.com/l-dmg-cmp/aidlc-workflows/issues/723).
   Remote discovery, trust, a first-party marketplace and a graduation path are
   also proposed in #723.
   Product discovery
-  ([#652](https://github.com/awslabs/aidlc-workflows/issues/652),
-  [#782](https://github.com/awslabs/aidlc-workflows/pull/782)) and design
-  ([#527](https://github.com/awslabs/aidlc-workflows/issues/527)) are candidates
+  ([#652](https://github.com/l-dmg-cmp/aidlc-workflows/issues/652),
+  [#782](https://github.com/l-dmg-cmp/aidlc-workflows/pull/782)) and design
+  ([#527](https://github.com/l-dmg-cmp/aidlc-workflows/issues/527)) are candidates
   for first-party plugins.
 - `aidlc-plugin-test.ts` exercises composition against a disposable copy of an
   install for external plugin authors.
 
 ### Knowledge and documents
 
-- [#731](https://github.com/awslabs/aidlc-workflows/pull/731) shipped
+- [#731](https://github.com/l-dmg-cmp/aidlc-workflows/pull/731) shipped
   DocumentKB's first indexing and citation slice. Summaries and tags shipped in
-  [#894](https://github.com/awslabs/aidlc-workflows/pull/894), completing that
+  [#894](https://github.com/l-dmg-cmp/aidlc-workflows/pull/894), completing that
   metadata slice of the tracked
-  [#714](https://github.com/awslabs/aidlc-workflows/issues/714) RFC.
-- [#694](https://github.com/awslabs/aidlc-workflows/issues/694) tracks
+  [#714](https://github.com/l-dmg-cmp/aidlc-workflows/issues/714) RFC.
+- [#694](https://github.com/l-dmg-cmp/aidlc-workflows/issues/694) tracks
   intent-aware discovery and auditable supplemental-knowledge delivery across
   stage topologies.
 
 ### Product discovery
 
 - Core Ideation delivery remains under review in
-  [#526](https://github.com/awslabs/aidlc-workflows/pull/526), with an
+  [#526](https://github.com/l-dmg-cmp/aidlc-workflows/pull/526), with an
   external-handover contract in
-  [#586](https://github.com/awslabs/aidlc-workflows/issues/586) and a
+  [#586](https://github.com/l-dmg-cmp/aidlc-workflows/issues/586) and a
   plugin-shaped alternative in
-  [#652](https://github.com/awslabs/aidlc-workflows/issues/652).
+  [#652](https://github.com/l-dmg-cmp/aidlc-workflows/issues/652).
 - The delivery surface, core versus first-party plugin, is not yet settled.
 
 ### Installation, upgrades and releases
 
 - The GA implementation and its active development line now live on `main`.
   The earlier implementation remains on `v1`.
-- [#722](https://github.com/awslabs/aidlc-workflows/issues/722) covers binary
+- [#722](https://github.com/l-dmg-cmp/aidlc-workflows/issues/722) covers binary
   packaging, installers, release automation, rollback and post-install setup;
   its milestones 1-3 implementation is under review in
-  [#756](https://github.com/awslabs/aidlc-workflows/pull/756). The earlier Bun
-  dependency tracker [#399](https://github.com/awslabs/aidlc-workflows/issues/399)
+  [#756](https://github.com/l-dmg-cmp/aidlc-workflows/pull/756). The earlier Bun
+  dependency tracker [#399](https://github.com/l-dmg-cmp/aidlc-workflows/issues/399)
   is closed as superseded by #722.
-- [#636](https://github.com/awslabs/aidlc-workflows/issues/636) tracks a
+- [#636](https://github.com/l-dmg-cmp/aidlc-workflows/issues/636) tracks a
   first-class upgrade contract. The earlier implementation PR
-  [#535](https://github.com/awslabs/aidlc-workflows/pull/535) closed without
+  [#535](https://github.com/l-dmg-cmp/aidlc-workflows/pull/535) closed without
   merging.
-- [#635](https://github.com/awslabs/aidlc-workflows/issues/635) tracks the
+- [#635](https://github.com/l-dmg-cmp/aidlc-workflows/issues/635) tracks the
   mismatch between the v2 GA `main` branch and GitHub's Latest release still
   pointing at `v1.0.1`.
 
 ### Harness expansion and parity
 
 - GitHub Copilot support shipped in
-  [#657](https://github.com/awslabs/aidlc-workflows/pull/657), and its RFC
-  [#472](https://github.com/awslabs/aidlc-workflows/issues/472) is closed.
+  [#657](https://github.com/l-dmg-cmp/aidlc-workflows/pull/657), and its RFC
+  [#472](https://github.com/l-dmg-cmp/aidlc-workflows/issues/472) is closed.
 - Cursor support shipped in
-  [#661](https://github.com/awslabs/aidlc-workflows/pull/661). A unified Kiro
+  [#661](https://github.com/l-dmg-cmp/aidlc-workflows/pull/661). A unified Kiro
   distribution is under review in
-  [#775](https://github.com/awslabs/aidlc-workflows/pull/775). Native Kiro IDE
+  [#775](https://github.com/l-dmg-cmp/aidlc-workflows/pull/775). Native Kiro IDE
   surfaces shipped in
-  [#824](https://github.com/awslabs/aidlc-workflows/pull/824), closing
-  [#555](https://github.com/awslabs/aidlc-workflows/issues/555), and hook matcher
+  [#824](https://github.com/l-dmg-cmp/aidlc-workflows/pull/824), closing
+  [#555](https://github.com/l-dmg-cmp/aidlc-workflows/issues/555), and hook matcher
   hardening shipped in
-  [#788](https://github.com/awslabs/aidlc-workflows/pull/788).
+  [#788](https://github.com/l-dmg-cmp/aidlc-workflows/pull/788).
 - Antigravity setup is proposed in
-  [#690](https://github.com/awslabs/aidlc-workflows/issues/690).
+  [#690](https://github.com/l-dmg-cmp/aidlc-workflows/issues/690).
 
 ### Evaluation and operations
 
-- [#684](https://github.com/awslabs/aidlc-workflows/issues/684) proposes
+- [#684](https://github.com/l-dmg-cmp/aidlc-workflows/issues/684) proposes
   repeatable benchmarks for measuring AI-DLC outcomes. Evaluator work is active
-  in [#753](https://github.com/awslabs/aidlc-workflows/pull/753); the earlier
+  in [#753](https://github.com/l-dmg-cmp/aidlc-workflows/pull/753); the earlier
   harness-evaluation tracker
-  [#223](https://github.com/awslabs/aidlc-workflows/issues/223) closed as not
+  [#223](https://github.com/l-dmg-cmp/aidlc-workflows/issues/223) closed as not
   planned for v1.
 - Operations-phase steering remains a requested direction
-  ([#221](https://github.com/awslabs/aidlc-workflows/issues/221),
-  [#473](https://github.com/awslabs/aidlc-workflows/issues/473)), not an active
+  ([#221](https://github.com/l-dmg-cmp/aidlc-workflows/issues/221),
+  [#473](https://github.com/l-dmg-cmp/aidlc-workflows/issues/473)), not an active
   `main` implementation stream.
 
 ## Known gaps

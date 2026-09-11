@@ -1,8 +1,8 @@
 site_name = "AI-DLC Workflows"
 site_description = "AI-DLC (AI-Driven Development Life Cycle) - one core, many harnesses"
 site_url = "https://awslabs.github.io/aidlc-workflows/"
-repo_url = "https://github.com/awslabs/aidlc-workflows"
-repo_name = "awslabs/aidlc-workflows"
+repo_url = "https://github.com/l-dmg-cmp/aidlc-workflows"
+repo_name = "l-dmg-cmp/aidlc-workflows"
 
 nav = [
   { "Home" = "README.md" },

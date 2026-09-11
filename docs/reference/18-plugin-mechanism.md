@@ -109,7 +109,7 @@ plugin-local artifact collisions, accidental test/fixture payloads under
 `tools/`, and any vendored `hooks/compose.ts` against the template bundled with
 the tool. Top-level `aidlc plugin validate|build` routes delegate to these same
 implementations; `create|test` routes remain deferred to
-[RFC #723 §2e](https://github.com/awslabs/aidlc-workflows/issues/723).
+[RFC #723 §2e](https://github.com/l-dmg-cmp/aidlc-workflows/issues/723).
 
 Build one host projection from the same external repository:
 

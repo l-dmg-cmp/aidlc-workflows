@@ -518,7 +518,7 @@ Validation checks:
 The user-facing `aidlc plugin validate` and `aidlc plugin build` verbs delegate
 to these same shipped tools. `aidlc plugin create` and `aidlc plugin test`
 remain deferred to
-[RFC #723 §2e](https://github.com/awslabs/aidlc-workflows/issues/723); invoke
+[RFC #723 §2e](https://github.com/l-dmg-cmp/aidlc-workflows/issues/723); invoke
 their shipped Bun tools directly.
 
 The repository test helper's `validatePluginContent()` delegates these shared

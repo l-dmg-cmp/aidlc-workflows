@@ -27,7 +27,7 @@ configs, hook wiring, activation) differs.
 ```bash
 tmp="$(mktemp -d)"
 curl -fsSL \
-  https://github.com/awslabs/aidlc-workflows/releases/latest/download/install.sh \
+  https://github.com/l-dmg-cmp/aidlc-workflows/releases/latest/download/install.sh \
   -o "$tmp/install.sh"
 sh "$tmp/install.sh"
 rm -rf "$tmp"

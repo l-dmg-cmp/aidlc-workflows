@@ -14,7 +14,7 @@
 
 If an item does not apply, leave it unchecked.
 
-* [ ] I have reviewed the [contributing guidelines](https://github.com/awslabs/aidlc-workflows/blob/main/CONTRIBUTING.md)
+* [ ] I have reviewed the [contributing guidelines](https://github.com/l-dmg-cmp/aidlc-workflows/blob/main/CONTRIBUTING.md)
 * [ ] I have performed a self-review of this change
 * [ ] Changes have been tested
 * [ ] Changes are documented
@@ -26,4 +26,4 @@ If an item does not apply, leave it unchecked.
 
 ## Acknowledgment
 
-By submitting this pull request, I confirm that you can use, modify, copy, and redistribute this contribution, under the terms of the [project license](https://github.com/awslabs/aidlc-workflows/blob/main/LICENSE).
+By submitting this pull request, I confirm that you can use, modify, copy, and redistribute this contribution, under the terms of the [project license](https://github.com/l-dmg-cmp/aidlc-workflows/blob/main/LICENSE).

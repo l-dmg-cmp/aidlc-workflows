@@ -1137,7 +1137,7 @@ describe("t332 preview publication pipeline", () => {
     expect(publish?.run).toContain("--preview-plan \"$plan\"");
     expect(publish?.run).toContain("--expected-assets 13");
     expect(previewText).toContain(
-      "awslabs/aidlc-workflows/.github/workflows/preview-release.yml",
+      "l-dmg-cmp/aidlc-workflows/.github/workflows/preview-release.yml",
     );
     expect(preview.jobs["release-result"].needs).toEqual(["validate", "release"]);
     const result = preview.jobs["release-result"].steps?.find(

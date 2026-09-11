@@ -36,7 +36,7 @@ param(
   } elseif ($env:AIDLC_RELEASE_REPOSITORY) {
     "https://github.com/$($env:AIDLC_RELEASE_REPOSITORY)/releases"
   } else {
-    'https://github.com/awslabs/aidlc-workflows/releases'
+    'https://github.com/l-dmg-cmp/aidlc-workflows/releases'
   }),
 
   [Parameter()]
@@ -63,7 +63,7 @@ $ProgressPreference = 'SilentlyContinue'
 $releaseRepository = if ($env:AIDLC_RELEASE_REPOSITORY) {
   $env:AIDLC_RELEASE_REPOSITORY
 } else {
-  'awslabs/aidlc-workflows'
+  'l-dmg-cmp/aidlc-workflows'
 }
 $releaseWorkflow = $env:AIDLC_RELEASE_WORKFLOW
 
