@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "distribution": "aicockpit",
+  "productName": "AICockpit",
+  "configNextStep": "run `aicockpit`, then `/aidlc --doctor`",
+  "name": "aicockpit",
+  "harnessDir": ".aicockpit",
+  "rulesSubdir": "rules"
+}

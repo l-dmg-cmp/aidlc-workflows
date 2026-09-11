@@ -49,6 +49,7 @@ Replace `claude` with the harness you use:
 | Codex CLI | `codex` | `codex` | `$aidlc` |
 | Cursor | `cursor` | Open Cursor or run `agent` | `/aidlc` |
 | opencode | `opencode` | `opencode` | `/aidlc` |
+| AICockpit | `aicockpit` | `aicockpit` | `/aidlc` |
 | GitHub Copilot CLI >= 1.0.74 / VS Code >= 1.130 | `copilot` | Copilot CLI or VS Code | `/aidlc` |
 
 A bare `aidlc config` starts the interactive setup when a terminal is
@@ -94,6 +95,7 @@ still apply.
 | Codex CLI >= 0.145.0 | Use a Git repository and approve project hook trust | [Codex CLI](harnesses/codex-cli.md) |
 | Cursor | Sign in to the IDE or CLI | [Cursor](harnesses/cursor.md) |
 | opencode >= 1.17 | Configure the session provider globally | [opencode](harnesses/opencode.md) |
+| AICockpit | Configure the session provider globally | [AICockpit](harnesses/aicockpit.md) |
 | GitHub Copilot | Trust the project folder; use GitHub sign-in or BYOK | [GitHub Copilot](harnesses/copilot.md) |
 
 ## AWS Bedrock Setup
@@ -197,6 +199,7 @@ After config, complete any action named in its output:
 | Codex CLI | Approve the hook trust prompt or apply the generated trust seed |
 | Cursor | Open the configured project or run `agent` |
 | opencode | Start `opencode` in the project |
+| AICockpit | Start `aicockpit` in the project |
 | GitHub Copilot | Trust the project folder |
 
 Run `aidlc doctor` after completing the action. It reports runtime, project,
