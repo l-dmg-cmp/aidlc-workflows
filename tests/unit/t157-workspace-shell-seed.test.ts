@@ -161,6 +161,14 @@ describe("t157 seeded workspace shell + re-rooted .gitignore (SEED)", () => {
         expect(rule).toContain("alwaysApply: true");
         expect(rule).toContain("aidlc/spaces/default/memory/org.md");
         expect(existsSync(harness.onboardingDist)).toBe(true);
+      } else if (harness.capabilities.memoryInclude === "aicockpit-instructions") {
+        const config = JSON.parse(
+          readFileSync(join(harness.distRoot, "aicockpit.json"), "utf-8"),
+        ) as { instructions: string[] };
+        expect(config.instructions, harness.name).toContain(
+          "aidlc/spaces/default/memory/**/*.md",
+        );
+        expect(existsSync(harness.onboardingDist)).toBe(true);
       } else {
         // opencode: the instructions glob in the project-root opencode.json is
         // the native include surface; AGENTS.md is the auto-read rules file.

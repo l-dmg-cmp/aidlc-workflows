@@ -448,6 +448,10 @@ describe("t266 conversation-language rule layer", () => {
           surface = join(harness.distRoot, "opencode.json");
           required = `${MEMORY_DIR}/**/*.md`;
           break;
+        case "aicockpit-instructions":
+          surface = join(harness.distRoot, "aicockpit.json");
+          required = `${MEMORY_DIR}/**/*.md`;
+          break;
         default:
           throw new Error(
             `${harness.name} declares memoryInclude "${include}" with no assertion here — ` +

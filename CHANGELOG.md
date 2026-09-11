@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.5] - 2026-09-11
+
+Fix test matrix conformance, first-run wizard selection, conductor skill count, and release packaging gitignore tracking. **Upgrade:** install version 2.9.5 after the release is published.
+
+* Untracked `dist-release` from git index so git check-ignore behaves identically across CI and local checkouts.
+* Added `aicockpit-instructions` handler to `t157` and `t266`.
+* Updated `RELEASE_HARNESSES` in `t244` and `EXPECTED_HARNESSES` in `t315` to include `aicockpit`.
+* Updated conductor skill count to 8 in `t305`.
+* Adjusted wizard harness picker test inputs in `t299` and `t304` to reflect alphabetical ordering with `aicockpit`.
+* Rephrased comment in `core/tools/aidlc-utility.ts` to satisfy `t55` open-set framing.
+
 ## [2.9.4] - 2026-09-11
 
 Synchronize README version badge with current release version. **Upgrade:** install version 2.9.4 after the release is published.

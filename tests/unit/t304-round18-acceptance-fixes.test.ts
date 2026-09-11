@@ -124,6 +124,7 @@ function runWizard(
   const hasCredentials = options.hasCredentials ?? true;
   const detection = JSON.stringify({
     harnesses: {
+      aicockpit: { found: false, probed: true },
       claude: { found: false, probed: true },
       codex: { found: false, probed: true },
       copilot: { found: false, probed: true },
@@ -490,7 +491,7 @@ describe("t304 first-run prompt and detection safety", () => {
   });
 
   test("recommended defaults without credentials leave provider setup manual", () => {
-    const result = runWizard("1\n\n", { hasCredentials: false });
+    const result = runWizard("2\n\n", { hasCredentials: false });
     expect(result.status, result.stdout + result.stderr).toBe(0);
     expect(result.stdout).toContain(
       "provider recorded as other; manual provider setup remains",

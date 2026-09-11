@@ -3026,7 +3026,7 @@ export async function collectDoctorReport(
       });
     }
     if (harness === ".aidlc") {
-      // Three harnesses ship the .aidlc runtime dir; the adapter file names the
+      // Multiple harnesses ship the .aidlc runtime dir; the adapter file names the
       // flavor. Copilot: a hooks/ shim inside the engine dir (wired by
       // .github/hooks/aidlc.json). opencode: a plugin in the .opencode shell.
       const copilotAdapter = join(projectDir, harness, "hooks", "aidlc-copilot-adapter.ts");

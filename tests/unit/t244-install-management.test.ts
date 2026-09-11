@@ -69,6 +69,7 @@ const V1_RELEASE_DISPATCH_WORKFLOW = join(
 const RELEASE_VERIFIER = join(REPO_ROOT, "scripts", "verify-release.ts");
 const UTILITY = join(REPO_ROOT, "core", "tools", "aidlc-utility.ts");
 const RELEASE_HARNESSES = [
+  "aicockpit",
   "claude",
   "codex",
   "copilot",
