@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.10.0] - 2026-09-11
+
+Increase `beforeAll` lifecycle timeout for `t48-runtime-graph-end-to-end.test.ts`. **Upgrade:** install version 2.10.0 after the release is published.
+
+* Extended `beforeAll` hook timeout in `tests/integration/t48-runtime-graph-end-to-end.test.ts` to 30,000ms to prevent timeout under parallel CI execution.
+
 ## [2.9.9] - 2026-09-11
 
 Handle User PATH update error catch block per PSScriptAnalyzer rules. **Upgrade:** install version 2.9.9 after the release is published.
