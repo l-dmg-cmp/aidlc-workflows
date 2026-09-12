@@ -13,6 +13,11 @@
   '',
   Justification = 'The PATH instruction is part of the pinned human-mode stdout contract under PowerShell 5.1.'
 )]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+  'PSAvoidUsingEmptyCatchBlock',
+  '',
+  Justification = 'Setting User environment variable is non-fatal when blocked in restricted environments.'
+)]
 [CmdletBinding(PositionalBinding = $false)]
 param(
   # Release version grammar: stable x.y.z, or a preview id
@@ -431,7 +436,7 @@ try {
         [Environment]::SetEnvironmentVariable('Path', $newUserPath, 'User')
       }
     } catch {
-      # Non-fatal if setting User environment variable is blocked in restricted environments
+      $null = $_
     }
     $pathCommand = "`$env:Path = '$($binDir.Replace("'", "''"));' + `$env:Path"
     $env:Path = "$binDir;$env:Path"
