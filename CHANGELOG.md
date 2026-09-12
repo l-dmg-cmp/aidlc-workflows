@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.8] - 2026-09-11
+
+Persist installed bin directory to Windows User PATH during `install.ps1`. **Upgrade:** install version 2.9.8 after the release is published.
+
+* Updated `scripts/install.ps1` to persistently append `$binDir` to `[Environment]::GetEnvironmentVariable('Path', 'User')` if not already present.
+
 ## [2.9.7] - 2026-09-11
 
 Configure AICockpit CLI command to `aic` and treat provider management as automatic in AICockpit sessions. **Upgrade:** install version 2.9.7 after the release is published.

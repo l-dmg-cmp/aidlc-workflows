@@ -423,6 +423,16 @@ try {
       [IO.Path]::GetFullPath($command),
       [StringComparison]::OrdinalIgnoreCase
     )) {
+    try {
+      $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+      $entries = ($userPath -split ';') | Where-Object { $_ -ne '' }
+      if ($entries -notcontains $binDir) {
+        $newUserPath = ($entries + $binDir) -join ';'
+        [Environment]::SetEnvironmentVariable('Path', $newUserPath, 'User')
+      }
+    } catch {
+      # Non-fatal if setting User environment variable is blocked in restricted environments
+    }
     $pathCommand = "`$env:Path = '$($binDir.Replace("'", "''"));' + `$env:Path"
     $env:Path = "$binDir;$env:Path"
     $resolvedAidlc = Get-Command aidlc -CommandType Application -ErrorAction SilentlyContinue |
