@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.9.7] - 2026-09-11
+
+Configure AICockpit CLI command to `aic` and treat provider management as automatic in AICockpit sessions. **Upgrade:** install version 2.9.7 after the release is published.
+
+* Updated AICockpit harness command probe from `aicockpit` to `aic`.
+* Marked provider setup as automatically managed by the AICockpit session in `setupMapRows` and `postApplyOutstandingActions`.
+* Updated next-step prompts and documentation to reference `aic`.
+
 ## [2.9.6] - 2026-09-11
 
 Fix release candidate inventory alphabetical sorting and wizard selection index in unit shard 2. **Upgrade:** install version 2.9.6 after the release is published.

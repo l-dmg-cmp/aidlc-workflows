@@ -7,7 +7,7 @@ import emit from "./emit.ts";
 const manifest: HarnessManifest = {
   name: "aicockpit",
   productName: "AICockpit",
-  configNextStep: "run `aicockpit`, then `/aidlc --doctor`",
+  configNextStep: "run `aic`, then `/aidlc --doctor`",
   harnessDir: ".aicockpit",
   orchestratorSkillPath: ".aicockpit/skills/aidlc/SKILL.md",
   tierFlavor: "aicockpit",

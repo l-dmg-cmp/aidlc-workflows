@@ -51,7 +51,7 @@ rm -rf "$tmp"
 cd your-project
 aidlc config --harness aicockpit
 aidlc doctor
-aicockpit
+aic
 ```
 
 The installer verifies the release metadata, executable, and all-harness runtime archive against the published SHA-256 checksums. The installed runtime does not require Bun, Node.js, or Git. Harness selection happens in `aidlc config`.

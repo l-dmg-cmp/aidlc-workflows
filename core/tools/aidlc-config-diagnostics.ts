@@ -648,11 +648,11 @@ const HARNESS_CLI: Record<
         minimumVersion: "1.17.0",
         install: "npm install -g opencode",
       },
-      aicockpit: {
-        command: "aicockpit",
-        required: true,
-        install: "npm install -g aicockpit",
-      },
+  aicockpit: {
+    command: "aic",
+    required: true,
+    install: "Install the AICockpit CLI and ensure `aic --version` works.",
+  },
     };
 
 function versionTuple(value: string): [number, number, number] | null {
@@ -1834,7 +1834,7 @@ export function postApplyOutstandingActions(
       command: `${invoke} config trust`,
     })));
   }
-  if (!skipped.has("providers")) {
+  if (!skipped.has("providers") && harness !== "aicockpit") {
     try {
       const record = readConfigDiagnosticRecords(
         join(projectDir, harnessDir),

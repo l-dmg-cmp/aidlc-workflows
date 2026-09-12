@@ -1876,7 +1876,8 @@ function setupMapRows(
   const runtime = outstanding.filter((action) => action.section === "runtime");
   const trust = outstanding.filter((action) => action.section === "trust");
   const providers = outstanding.filter((action) => action.section === "providers");
-  const providerNeeds = records.providers === null || providers.length > 0;
+  const isAicockpit = modelHarness(distribution) === "aicockpit";
+  const providerNeeds = !isAicockpit && (records.providers === null || providers.length > 0);
   const modelDetail = !policy || modelPolicyIsEmpty(policy)
     ? "shipped defaults"
     : policy.preset
@@ -1900,7 +1901,9 @@ function setupMapRows(
     ? `${trust.length} host trust issue${trust.length === 1 ? "" : "s"}`
     :
     (records.trust?.reviewed ? "review acknowledged" : "no unmet host trust");
-  const providerDetail = records.providers === null
+  const providerDetail = isAicockpit
+    ? "managed automatically by AICockpit session"
+    : records.providers === null
     ? "no recorded answers; provider access unverified"
     : providers.length > 0
     ? `${providers.length} pending provider action${providers.length === 1 ? "" : "s"}`
@@ -4329,7 +4332,7 @@ function firstRunNextCommands(distribution: string): [string, string] {
     return ["opencode                       open opencode in this repo", '/aidlc "what you want built"  describe your first intent'];
   }
   if (distribution === "aicockpit") {
-    return ["aicockpit                      open AICockpit in this repo", '/aidlc "what you want built"  describe your first intent'];
+    return ["aic                            open AICockpit in this repo", '/aidlc "what you want built"  describe your first intent'];
   }
   if (distribution === "cursor") {
     return ["cursor                         open Cursor in this repo", '/aidlc "what you want built"  describe your first intent'];
